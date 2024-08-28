@@ -65,109 +65,154 @@
     .pulse-animation {
       animation: pulse 2s infinite;
     }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      height: 100%;
+      width: 80%;
+      max-width: 300px;
+      transition: left 0.3s ease-in-out;
+      z-index: 1000;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 999;
+    }
+
+    .overlay.active {
+      display: block;
+    }
   </style>
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen">
-  <div class="flex flex-col md:flex-row h-screen">
-    <!-- Sidebar -->
-    <div class="gradient-bg p-6 md:w-1/4 flex flex-col gap-6">
+  <!-- Mobile Header -->
+  <header class="gradient-bg p-4 flex justify-between items-center md:hidden">
+    <button id="menu-toggle" class="text-white">
+      <i class="ph-list-fill text-2xl"></i>
+    </button>
+    <h2 class="text-xl font-bold text-white">JxshBets</h2>
+    <button id="theme-toggle" class="text-white">
+      <i class="ph-sun-fill text-xl"></i>
+    </button>
+  </header>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar gradient-bg p-6 flex flex-col gap-6">
+    <div class="flex items-center gap-4">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIj48Y2lyY2xlIGN4PSIyNSIgY3k9IjI1IiByPSIyMCIgZmlsbD0iIzRGNDZFNSIvPjxwYXRoIGQ9Ik0yMCAzNWwxNS0xME0yMCAxNWwxNSAxMCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIzIi8+PC9zdmc+" alt="JxshBets Logo" class="w-12 h-12">
+      <h2 class="text-2xl font-bold text-white">JxshBets</h2>
+    </div>
+    <nav class="flex flex-col gap-4">
+      <button class="flex items-center gap-3 text-white hover:bg-white hover:bg-opacity-20 p-3 rounded-lg transition-all">
+        <i class="ph-house-simple-fill"></i>
+        <span>Home</span>
+      </button>
+      <button class="flex items-center gap-3 text-white hover:bg-white hover:bg-opacity-20 p-3 rounded-lg transition-all">
+        <i class="ph-chart-line-up-fill"></i>
+        <span>Stats</span>
+      </button>
+      <button class="flex items-center gap-3 text-white hover:bg-white hover:bg-opacity-20 p-3 rounded-lg transition-all">
+        <i class="ph-calendar-fill"></i>
+        <span>Calendar</span>
+      </button>
+      <button class="flex items-center gap-3 text-white bg-white bg-opacity-20 p-3 rounded-lg transition-all">
+        <i class="ph-lightning-fill"></i>
+        <span>Slip Generator</span>
+      </button>
+    </nav>
+    <div class="mt-auto flex gap-4">
+      <button class="text-white hover:text-gray-300 transition-all">
+        <i class="ph-twitter-logo-fill text-2xl"></i>
+      </button>
+      <button class="text-white hover:text-gray-300 transition-all">
+        <i class="ph-discord-logo-fill text-2xl"></i>
+      </button>
+      <button class="text-white hover:text-gray-300 transition-all">
+        <i class="ph-instagram-logo-fill text-2xl"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay"></div>
+
+  <!-- Main Content -->
+  <div class="bg-gray-900 p-6 md:ml-1/4 flex flex-col gap-6 overflow-y-auto custom-scrollbar">
+    <div class="flex items-center justify-between">
+      <h1 class="text-3xl font-bold text-white">MLB Slip Generator</h1>
       <div class="flex items-center gap-4">
-        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIj48Y2lyY2xlIGN4PSIyNSIgY3k9IjI1IiByPSIyMCIgZmlsbD0iIzRGNDZFNSIvPjxwYXRoIGQ9Ik0yMCAzNWwxNS0xME0yMCAxNWwxNSAxMCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIzIi8+PC9zdmc+" alt="JxshBets Logo" class="w-12 h-12">
-        <h2 class="text-2xl font-bold text-white">JxshBets</h2>
-      </div>
-      <nav class="flex flex-col gap-4">
-        <button class="flex items-center gap-3 text-white hover:bg-white hover:bg-opacity-20 p-3 rounded-lg transition-all">
-          <i class="ph-house-simple-fill"></i>
-          <span>Home</span>
-        </button>
-        <button class="flex items-center gap-3 text-white hover:bg-white hover:bg-opacity-20 p-3 rounded-lg transition-all">
-          <i class="ph-chart-line-up-fill"></i>
-          <span>Stats</span>
-        </button>
-        <button class="flex items-center gap-3 text-white hover:bg-white hover:bg-opacity-20 p-3 rounded-lg transition-all">
-          <i class="ph-calendar-fill"></i>
-          <span>Calendar</span>
-        </button>
-        <button class="flex items-center gap-3 text-white bg-white bg-opacity-20 p-3 rounded-lg transition-all">
-          <i class="ph-lightning-fill"></i>
-          <span>Slip Generator</span>
-        </button>
-      </nav>
-      <div class="mt-auto flex gap-4">
-        <button class="text-white hover:text-gray-300 transition-all">
-          <i class="ph-twitter-logo-fill text-2xl"></i>
-        </button>
-        <button class="text-white hover:text-gray-300 transition-all">
-          <i class="ph-discord-logo-fill text-2xl"></i>
-        </button>
-        <button class="text-white hover:text-gray-300 transition-all">
-          <i class="ph-instagram-logo-fill text-2xl"></i>
-        </button>
+        <select id="odds-format" class="bg-gray-800 text-white p-2 rounded-lg">
+          <option value="american">American</option>
+          <option value="decimal">Decimal</option>
+        </select>
       </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="bg-gray-900 p-6 md:w-3/4 flex flex-col gap-6 overflow-y-auto custom-scrollbar">
-      <div class="flex items-center justify-between">
-        <h1 class="text-3xl font-bold text-white">MLB Slip Generator</h1>
-        <div class="flex items-center gap-4">
-          <select id="odds-format" class="bg-gray-800 text-white p-2 rounded-lg">
-            <option value="american">American</option>
-            <option value="decimal">Decimal</option>
+    <div class="card p-6">
+      <h2 class="text-xl font-semibold mb-4">Build Your Slip</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="date" class="block text-sm font-medium mb-2">Date</label>
+          <select id="date" class="w-full bg-gray-800 text-white p-3 rounded-lg">
+            <option value="2024-08-29">August 29, 2024</option>
+            <option value="2024-08-30">August 30, 2024</option>
+            <option value="2024-08-31">August 31, 2024</option>
+            <option value="2024-09-01">September 1, 2024</option>
+            <option value="2024-09-02">September 2, 2024</option>
           </select>
-          <button id="theme-toggle" class="bg-gray-800 p-2 rounded-lg hover:bg-gray-700 transition-all">
-            <i class="ph-sun-fill text-white text-xl"></i>
-          </button>
         </div>
-      </div>
-
-      <div class="card p-6">
-        <h2 class="text-xl font-semibold mb-4">Build Your Slip</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label for="date" class="block text-sm font-medium mb-2">Date</label>
-            <select id="date" class="w-full bg-gray-800 text-white p-3 rounded-lg">
-              <option value="2024-08-29">August 29, 2024</option>
-              <option value="2024-08-30">August 30, 2024</option>
-              <option value="2024-08-31">August 31, 2024</option>
-              <option value="2024-09-01">September 1, 2024</option>
-              <option value="2024-09-02">September 2, 2024</option>
-            </select>
-          </div>
-          <div>
-            <label for="legs" class="block text-sm font-medium mb-2">Number of Legs</label>
-            <input type="number" id="legs" min="1" max="5" value="2" class="w-full bg-gray-800 text-white p-3 rounded-lg">
-          </div>
-          <div class="md:col-span-2">
-            <label for="markets" class="block text-sm font-medium mb-2">Markets</label>
-            <select id="markets" class="w-full bg-gray-800 text-white p-3 rounded-lg">
-              <option value="all">All Markets</option>
+        <div>
+          <label for="legs" class="block text-sm font-medium mb-2">Number of Legs</label>
+          <input type="number" id="legs" min="1" max="5" value="2" class="w-full bg-gray-800 text-white p-3 rounded-lg">
+        </div>
+        <div class="md:col-span-2">
+          <label for="markets" class="block text-sm font-medium mb-2">Markets</label>
+          <select id="markets" class="w-full bg-gray-800 text-white p-3 rounded-lg">
+            <option value="all">All Markets</option>
+            <optgroup label="General">
               <option value="moneyline">Moneyline</option>
               <option value="runline">Run Line</option>
               <option value="total">Total Runs (Over/Under)</option>
-              <option value="team_total">Team Total Runs</option>
               <option value="first_5_innings">First 5 Innings (Moneyline)</option>
               <option value="first_5_innings_total">First 5 Innings Total</option>
               <option value="first_inning">First Inning Result</option>
-              <option value="alt_runline">Alternate Run Line</option>
+              <option value="extra_innings">Game to Go to Extra Innings</option>
+            </optgroup>
+            <optgroup label="Player">
               <option value="player_hits">Player Total Hits</option>
               <option value="player_runs">Player Total Runs</option>
               <option value="player_rbis">Player Total RBIs</option>
               <option value="player_strikeouts">Pitcher Total Strikeouts</option>
               <option value="player_home_runs">Player to Hit Home Run</option>
-              <option value="extra_innings">Game to Go to Extra Innings</option>
+            </optgroup>
+            <optgroup label="Team">
+              <option value="team_total">Team Total Runs</option>
+              <option value="alt_runline">Alternate Run Line</option>
               <option value="win_margin">Win Margin</option>
-            </select>
-          </div>
+            </optgroup>
+          </select>
         </div>
-        <button id="generate-parlay" class="mt-6 w-full bg-gradient-to-r from-primary-color to-secondary-color text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-all pulse-animation">
-          Generate Parlay
-        </button>
       </div>
+      <button id="generate-parlay" class="mt-6 w-full bg-gradient-to-r from-primary-color to-secondary-color text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-all pulse-animation">
+        Generate Parlay
+      </button>
+    </div>
 
-      <div id="parlay-output" class="card p-6 min-h-[300px]">
-        <p class="text-center text-gray-400">Your generated parlay will appear here</p>
-      </div>
+    <div id="parlay-output" class="card p-6 min-h-[300px]">
+      <p class="text-center text-gray-400">Your generated parlay will appear here</p>
     </div>
   </div>
 
@@ -179,6 +224,9 @@
     const dateSelect = document.getElementById('date');
     const oddsFormatSelect = document.getElementById('odds-format');
     const themeToggle = document.getElementById('theme-toggle');
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
 
     const upcomingGames = {
       '2024-08-29': [
@@ -209,7 +257,7 @@
         { homeTeam: 'Rays', awayTeam: 'Padres', time: '6:50 p.m.' }
       ],
       '2024-08-31': [
-        { homeTeam: 'Yankees', awayTeam: 'Cardinals', time: '1:05 p.m.' },
+      { homeTeam: 'Yankees', awayTeam: 'Cardinals', time: '1:05 p.m.' },
         { homeTeam: 'Rays', awayTeam: 'Padres', time: '4:10 p.m.' },
         { homeTeam: 'Tigers', awayTeam: 'Red Sox', time: '6:10 p.m.' },
         { homeTeam: 'Rangers', awayTeam: 'Athletics', time: '7:05 p.m.' },
@@ -257,20 +305,53 @@
     const markets = {
       moneyline: {name: 'Moneyline', picks: ['Home Win', 'Away Win']},
       runline: {name: 'Run Line', picks: ['Home -1.5', 'Away +1.5']},
-      total: {name: 'Total Runs (Over/Under)', picks: ['Over', 'Under']},
-      team_total: {name: 'Team Total Runs', picks: ['Over', 'Under']},
+      total: {name: 'Total Runs (Over/Under)', picks: ['Over {total}', 'Under {total}']},
+      team_total: {name: 'Team Total Runs', picks: ['Home Over {total}', 'Home Under {total}', 'Away Over {total}', 'Away Under {total}']},
       first_5_innings: {name: 'First 5 Innings (Moneyline)', picks: ['Home Win', 'Away Win', 'Tie']},
-      first_5_innings_total: {name: 'First 5 Innings Total', picks: ['Over', 'Under']},
+      first_5_innings_total: {name: 'First 5 Innings Total', picks: ['Over {total}', 'Under {total}']},
       first_inning: {name: 'First Inning Result', picks: ['Home Score', 'Away Score', 'No Score']},
       alt_runline: {name: 'Alternate Run Line', picks: ['Home -2.5', 'Away +2.5', 'Home +2.5', 'Away -2.5']},
-      player_hits: {name: 'Player Total Hits', picks: ['Over', 'Under']},
-      player_runs: {name: 'Player Total Runs', picks: ['Over', 'Under']},
-      player_rbis: {name: 'Player Total RBIs', picks: ['Over', 'Under']},
-      player_strikeouts: {name: 'Pitcher Total Strikeouts', picks: ['Over', 'Under']},
-      player_home_runs: {name: 'Player to Hit Home Run', picks: ['Yes', 'No']},
+      player_hits: {name: 'Player Total Hits', picks: ['{player} Over {total}', '{player} Under {total}']},
+      player_runs: {name: 'Player Total Runs', picks: ['{player} Over {total}', '{player} Under {total}']},
+      player_rbis: {name: 'Player Total RBIs', picks: ['{player} Over {total}', '{player} Under {total}']},
+      player_strikeouts: {name: 'Pitcher Total Strikeouts', picks: ['{player} Over {total}', '{player} Under {total}']},
+      player_home_runs: {name: 'Player to Hit Home Run', picks: ['{player} Yes', '{player} No']},
       extra_innings: {name: 'Game to Go to Extra Innings', picks: ['Yes', 'No']},
       win_margin: {name: 'Win Margin', picks: ['Home by 1-2', 'Home by 3+', 'Away by 1-2', 'Away by 3+']}
     };
+
+    const activePlayers = {
+  'Angels': ['Mike Trout', 'Shohei Ohtani', 'Anthony Rendon', 'Jared Walsh', 'David Fletcher'],
+  'Athletics': ['Matt Olson', 'Matt Chapman', 'Ramon Laureano', 'Sean Murphy', 'Mark Canha'],
+  'Astros': ['Jose Altuve', 'Alex Bregman', 'Yordan Alvarez', 'Carlos Correa', 'Kyle Tucker'],
+  'Blue Jays': ['Vladimir Guerrero Jr.', 'Bo Bichette', 'George Springer', 'Teoscar Hernández', 'Cavan Biggio'],
+  'Braves': ['Ronald Acuña Jr.', 'Freddie Freeman', 'Ozzie Albies', 'Dansby Swanson', 'Austin Riley'],
+  'Brewers': ['Christian Yelich', 'Lorenzo Cain', 'Kolten Wong', 'Willy Adames', 'Omar Narváez'],
+  'Cardinals': ['Nolan Arenado', 'Paul Goldschmidt', 'Yadier Molina', 'Tommy Edman', 'Dylan Carlson'],
+  'Cubs': ['Kris Bryant', 'Anthony Rizzo', 'Javier Báez', 'Willson Contreras', 'Ian Happ'],
+  'Diamondbacks': ['Ketel Marte', 'Eduardo Escobar', 'Carson Kelly', 'David Peralta', 'Josh Rojas'],
+  'Dodgers': ['Mookie Betts', 'Cody Bellinger', 'Corey Seager', 'Max Muncy', 'Justin Turner'],
+  'Giants': ['Buster Posey', 'Brandon Crawford', 'Mike Yastrzemski', 'Evan Longoria', 'Brandon Belt'],
+  'Guardians': ['José Ramírez', 'Franmil Reyes', 'Eddie Rosario', 'Cesar Hernandez', 'Amed Rosario'],
+  'Mariners': ['Kyle Seager', 'Mitch Haniger', 'Ty France', 'J.P. Crawford', 'Dylan Moore'],
+  'Marlins': ['Starling Marte', 'Jazz Chisholm Jr.', 'Jesús Aguilar', 'Miguel Rojas', 'Brian Anderson'],
+  'Mets': ['Francisco Lindor', 'Pete Alonso', 'Michael Conforto', 'Jeff McNeil', 'Dominic Smith'],
+  'Nationals': ['Juan Soto', 'Trea Turner', 'Josh Bell', 'Kyle Schwarber', 'Starlin Castro'],
+  'Orioles': ['Cedric Mullins', 'Trey Mancini', 'Ryan Mountcastle', 'Anthony Santander', 'Freddy Galvis'],
+  'Padres': ['Fernando Tatis Jr.', 'Manny Machado', 'Eric Hosmer', 'Wil Myers', 'Jake Cronenworth'],
+  'Phillies': ['Bryce Harper', 'J.T. Realmuto', 'Rhys Hoskins', 'Didi Gregorius', 'Jean Segura'],
+  'Pirates': ['Bryan Hayes', 'Bryan Reynolds', 'Colin Moran', 'Adam Frazier', 'Gregory Polanco'],
+  'Rangers': ['Joey Gallo', 'Isiah Kiner-Falefa', 'Nate Lowe', 'Nick Solak', 'Adolis García'],
+  'Rays': ['Brandon Lowe', 'Austin Meadows', 'Randy Arozarena', 'Willy Adames', 'Mike Zunino'],
+  'Red Sox': ['Xander Bogaerts', 'Rafael Devers', 'J.D. Martinez', 'Alex Verdugo', 'Kiké Hernández'],
+  'Reds': ['Nick Castellanos', 'Jesse Winker', 'Eugenio Suárez', 'Joey Votto', 'Mike Moustakas'],
+  'Rockies': ['Trevor Story', 'Charlie Blackmon', 'C.J. Cron', 'Ryan McMahon', 'Raimel Tapia'],
+  'Royals': ['Whit Merrifield', 'Salvador Perez', 'Carlos Santana', 'Andrew Benintendi', 'Jorge Soler'],
+  'Tigers': ['Miguel Cabrera', 'Jonathan Schoop', 'Robbie Grossman', 'Jeimer Candelario', 'Niko Goodrum'],
+  'Twins': ['Nelson Cruz', 'Josh Donaldson', 'Max Kepler', 'Jorge Polanco', 'Miguel Sanó'],
+  'White Sox': ['José Abreu', 'Tim Anderson', 'Yoán Moncada', 'Yasmani Grandal', 'Luis Robert'],
+  'Yankees': ['Aaron Judge', 'Giancarlo Stanton', 'DJ LeMahieu', 'Gleyber Torres', 'Luke Voit']
+};
 
     function getRandomGame(date) {
       const games = upcomingGames[date];
@@ -289,9 +370,36 @@
       return markets[selectedMarket];
     }
 
-    function getRandomPick(market) {
-      return market.picks[Math.floor(Math.random() * market.picks.length)];
+    function getRandomPick(market, game) {
+  let pick = market.picks[Math.floor(Math.random() * market.picks.length)];
+  
+  if (pick.includes('{total}')) {
+    pick = pick.replace('{total}', Math.floor(Math.random() * 5) + 5);
+  }
+  if (pick.includes('{player}')) {
+    if (market.name.includes('Pitcher')) {
+      pick = pick.replace('{player}', getRandomPitcher(game));
+    } else {
+      pick = pick.replace('{player}', getRandomPlayer(game));
     }
+  }
+  
+  return pick;
+}
+
+    function getRandomPlayer(game) {
+  const teams = [game.homeTeam, game.awayTeam];
+  const team = teams[Math.floor(Math.random() * teams.length)];
+  const players = activePlayers[team];
+  return players[Math.floor(Math.random() * players.length)];
+}
+
+function getRandomPitcher(game) {
+  const teams = [game.homeTeam, game.awayTeam];
+  const team = teams[Math.floor(Math.random() * teams.length)];
+  // For simplicity, we'll use the first player in the list as the pitcher
+  return activePlayers[team][0];
+}
 
     function generateRandomOdds() {
       const baseOdds = Math.floor(Math.random() * 500) + 100;
@@ -326,7 +434,7 @@
           usedGames.add(JSON.stringify(game));
 
           market = getRandomMarket();
-          pick = getRandomPick(market);
+          pick = getRandomPick(market, game);
           const odds = generateRandomOdds();
           const formattedOdds = convertOdds(odds, oddsFormatSelect.value);
 
@@ -377,6 +485,17 @@
       const icon = themeToggle.querySelector('i');
       icon.classList.toggle('ph-sun-fill', isDarkMode);
       icon.classList.toggle('ph-moon-fill', !isDarkMode);
+    });
+
+    // Mobile menu functionality
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('active');
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('active');
     });
 
     // Initialize phosphor icons
