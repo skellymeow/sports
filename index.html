@@ -6,56 +6,127 @@
   <title>JxshBets - MLB Slip Generator</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/phosphor-icons"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+    :root {
+      --primary-color: #4F46E5;
+      --secondary-color: #10B981;
+      --background-dark: #1F2937;
+      --background-light: #F3F4F6;
+      --text-dark: #1F2937;
+      --text-light: #F9FAFB;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .gradient-bg {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .highlight-pick {
+      background: var(--secondary-color);
+      color: var(--text-light);
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 20px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .pulse-animation {
+      animation: pulse 2s infinite;
+    }
+  </style>
 </head>
-<body class="bg-gray-900 text-gray-300">
-  <div class="flex h-screen">
-    <div class="bg-gray-800 p-6 w-1/4 flex flex-col gap-4">
-      <div class="flex items-center gap-2">
-        <img src="logo.png" alt="JxshBets Logo" class="w-12 h-12">
-        <h2 class="text-lg font-bold">JxshBets</h2>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+  <div class="flex flex-col md:flex-row h-screen">
+    <!-- Sidebar -->
+    <div class="gradient-bg p-6 md:w-1/4 flex flex-col gap-6">
+      <div class="flex items-center gap-4">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIj48Y2lyY2xlIGN4PSIyNSIgY3k9IjI1IiByPSIyMCIgZmlsbD0iIzRGNDZFNSIvPjxwYXRoIGQ9Ik0yMCAzNWwxNS0xME0yMCAxNWwxNSAxMCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIzIi8+PC9zdmc+" alt="JxshBets Logo" class="w-12 h-12">
+        <h2 class="text-2xl font-bold text-white">JxshBets</h2>
       </div>
       <nav class="flex flex-col gap-4">
-        <button id="home-btn" class="bg-gray-700 px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-600">
-          <i class="ph-house"></i>
+        <button class="flex items-center gap-3 text-white hover:bg-white hover:bg-opacity-20 p-3 rounded-lg transition-all">
+          <i class="ph-house-simple-fill"></i>
           <span>Home</span>
         </button>
-        <button id="stats-btn" class="bg-gray-700 px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-600">
-          <i class="ph-chart-bar"></i>
+        <button class="flex items-center gap-3 text-white hover:bg-white hover:bg-opacity-20 p-3 rounded-lg transition-all">
+          <i class="ph-chart-line-up-fill"></i>
           <span>Stats</span>
         </button>
-        <button id="calendar-btn" class="bg-gray-700 px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-600">
-          <i class="ph-calendar"></i>
+        <button class="flex items-center gap-3 text-white hover:bg-white hover:bg-opacity-20 p-3 rounded-lg transition-all">
+          <i class="ph-calendar-fill"></i>
           <span>Calendar</span>
         </button>
-        <button id="slip-generator-btn" class="bg-gray-700 px-4 py-2 rounded-md flex items-center gap-2 active:bg-gray-600">
-          <i class="ph-lightning-bolt"></i>
+        <button class="flex items-center gap-3 text-white bg-white bg-opacity-20 p-3 rounded-lg transition-all">
+          <i class="ph-lightning-fill"></i>
           <span>Slip Generator</span>
         </button>
       </nav>
-      <div class="flex gap-4 mt-auto">
-        <button class="bg-gray-700 px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-600">
-          <i class="ph-twitter-logo"></i>
+      <div class="mt-auto flex gap-4">
+        <button class="text-white hover:text-gray-300 transition-all">
+          <i class="ph-twitter-logo-fill text-2xl"></i>
         </button>
-        <button class="bg-gray-700 px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-600">
-          <i class="ph-discord-logo"></i>
+        <button class="text-white hover:text-gray-300 transition-all">
+          <i class="ph-discord-logo-fill text-2xl"></i>
         </button>
-        <button class="bg-gray-700 px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-600">
-          <i class="ph-instagram-logo"></i>
+        <button class="text-white hover:text-gray-300 transition-all">
+          <i class="ph-instagram-logo-fill text-2xl"></i>
         </button>
       </div>
     </div>
-    <div class="bg-gray-800 p-6 w-3/4 flex flex-col gap-4 overflow-y-auto">
-      <div class="flex items-center gap-2">
-        <i class="ph-lightning-bolt"></i>
-        <h2 class="text-lg font-bold">MLB Slip Generator</h2>
+
+    <!-- Main Content -->
+    <div class="bg-gray-900 p-6 md:w-3/4 flex flex-col gap-6 overflow-y-auto custom-scrollbar">
+      <div class="flex items-center justify-between">
+        <h1 class="text-3xl font-bold text-white">MLB Slip Generator</h1>
+        <div class="flex items-center gap-4">
+          <select id="odds-format" class="bg-gray-800 text-white p-2 rounded-lg">
+            <option value="american">American</option>
+            <option value="decimal">Decimal</option>
+          </select>
+          <button id="theme-toggle" class="bg-gray-800 p-2 rounded-lg hover:bg-gray-700 transition-all">
+            <i class="ph-sun-fill text-white text-xl"></i>
+          </button>
+        </div>
       </div>
-      <p class="text-sm">Create MLB parlays with a wide range of markets.</p>
-      <div class="bg-gray-700 rounded-md p-4">
-        <h3 class="text-lg font-bold mb-2">BUILD YOUR SLIP</h3>
-        <div class="grid grid-cols-2 gap-4">
+
+      <div class="card p-6">
+        <h2 class="text-xl font-semibold mb-4">Build Your Slip</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label for="date" class="block text-sm font-medium mb-2">Date</label>
-            <select id="date" class="bg-gray-600 border border-gray-500 text-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 rounded-md">
+            <select id="date" class="w-full bg-gray-800 text-white p-3 rounded-lg">
               <option value="2024-08-29">August 29, 2024</option>
               <option value="2024-08-30">August 30, 2024</option>
               <option value="2024-08-31">August 31, 2024</option>
@@ -64,25 +135,13 @@
             </select>
           </div>
           <div>
-            <label for="sport" class="block text-sm font-medium mb-2">Sport</label>
-            <select id="sport" class="bg-gray-600 border border-gray-500 text-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 rounded-md">
-              <option value="mlb">MLB</option>
-            </select>
+            <label for="legs" class="block text-sm font-medium mb-2">Number of Legs</label>
+            <input type="number" id="legs" min="1" max="5" value="2" class="w-full bg-gray-800 text-white p-3 rounded-lg">
           </div>
-          <div>
-            <label for="sportsbook" class="block text-sm font-medium mb-2">Sportsbook</label>
-            <select id="sportsbook" class="bg-gray-600 border border-gray-500 text-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 rounded-md">
-              <option value="draftkings">DraftKings</option>
-            </select>
-          </div>
-          <div>
-            <label for="legs" class="block text-sm font-medium mb-2">Legs</label>
-            <input type="number" id="legs" min="1" max="5" class="bg-gray-600 border border-gray-500 text-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 rounded-md" value="2" />
-          </div>
-          <div>
+          <div class="md:col-span-2">
             <label for="markets" class="block text-sm font-medium mb-2">Markets</label>
-            <select id="markets" class="bg-gray-600 border border-gray-500 text-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 rounded-md">
-              <option value="all">All</option>
+            <select id="markets" class="w-full bg-gray-800 text-white p-3 rounded-lg">
+              <option value="all">All Markets</option>
               <option value="moneyline">Moneyline</option>
               <option value="runline">Run Line</option>
               <option value="total">Total Runs (Over/Under)</option>
@@ -100,23 +159,15 @@
               <option value="win_margin">Win Margin</option>
             </select>
           </div>
-          <div class="col-span-2">
-            <button id="generate-parlay" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline">Generate Parlay</button>
-          </div>
         </div>
+        <button id="generate-parlay" class="mt-6 w-full bg-gradient-to-r from-primary-color to-secondary-color text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-all pulse-animation">
+          Generate Parlay
+        </button>
       </div>
-      <div id="parlay-output" class="bg-gray-700 rounded-md p-4 h-full overflow-y-auto">
-        <p class="text-center">Awaiting parlay inputs...</p>
-      </div>
-    </div>
-  </div>
 
-  <!-- Modal -->
-  <div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center">
-    <div class="bg-gray-800 p-6 rounded-lg max-w-lg w-full">
-      <h2 id="modal-title" class="text-xl font-bold mb-4"></h2>
-      <p id="modal-content"></p>
-      <button id="modal-close" class="mt-4 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md">Close</button>
+      <div id="parlay-output" class="card p-6 min-h-[300px]">
+        <p class="text-center text-gray-400">Your generated parlay will appear here</p>
+      </div>
     </div>
   </div>
 
@@ -126,10 +177,8 @@
     const legsInput = document.getElementById('legs');
     const marketsSelect = document.getElementById('markets');
     const dateSelect = document.getElementById('date');
-    const modal = document.getElementById('modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalContent = document.getElementById('modal-content');
-    const modalClose = document.getElementById('modal-close');
+    const oddsFormatSelect = document.getElementById('odds-format');
+    const themeToggle = document.getElementById('theme-toggle');
 
     const upcomingGames = {
       '2024-08-29': [
@@ -174,7 +223,7 @@
         { homeTeam: 'Nationals', awayTeam: 'Cubs', time: '4:05 p.m.' },
         { homeTeam: 'Guardians', awayTeam: 'Pirates', time: '6:10 p.m.' }
       ],
-'2024-09-01': [
+      '2024-09-01': [
         { homeTeam: 'Reds', awayTeam: 'Brewers', time: '12:10 p.m.' },
         { homeTeam: 'Nationals', awayTeam: 'Cubs', time: '1:35 p.m.' },
         { homeTeam: 'Rays', awayTeam: 'Padres', time: '1:40 p.m.' },
@@ -206,26 +255,28 @@
     };
 
     const markets = {
-      moneyline: {name: 'Moneyline', odds: [-110, 110]},
-      runline: {name: 'Run Line', odds: [-110, 110]},
-      total: {name: 'Total Runs (Over/Under)', odds: [-110, 110]},
-      team_total: {name: 'Team Total Runs', odds: [-110, 110]},
-      first_5_innings: {name: 'First 5 Innings (Moneyline)', odds: [-110, 110]},
-      first_5_innings_total: {name: 'First 5 Innings Total', odds: [-110, 110]},
-      first_inning: {name: 'First Inning Result', odds: [150, 180, 300]},
-      alt_runline: {name: 'Alternate Run Line', odds: [-150, 130]},
-      player_hits: {name: 'Player Total Hits', odds: [-110, 110]},
-      player_runs: {name: 'Player Total Runs', odds: [-110, 110]},
-      player_rbis: {name: 'Player Total RBIs', odds: [-110, 110]},
-      player_strikeouts: {name: 'Pitcher Total Strikeouts', odds: [-110, 110]},
-      player_home_runs: {name: 'Player to Hit Home Run', odds: [250, 300, 350]},
-      extra_innings: {name: 'Game to Go to Extra Innings', odds: [600, 700]},
-      win_margin: {name: 'Win Margin', odds: [200, 250, 300, 400]}
+      moneyline: {name: 'Moneyline', picks: ['Home Win', 'Away Win']},
+      runline: {name: 'Run Line', picks: ['Home -1.5', 'Away +1.5']},
+      total: {name: 'Total Runs (Over/Under)', picks: ['Over', 'Under']},
+      team_total: {name: 'Team Total Runs', picks: ['Over', 'Under']},
+      first_5_innings: {name: 'First 5 Innings (Moneyline)', picks: ['Home Win', 'Away Win', 'Tie']},
+      first_5_innings_total: {name: 'First 5 Innings Total', picks: ['Over', 'Under']},
+      first_inning: {name: 'First Inning Result', picks: ['Home Score', 'Away Score', 'No Score']},
+      alt_runline: {name: 'Alternate Run Line', picks: ['Home -2.5', 'Away +2.5', 'Home +2.5', 'Away -2.5']},
+      player_hits: {name: 'Player Total Hits', picks: ['Over', 'Under']},
+      player_runs: {name: 'Player Total Runs', picks: ['Over', 'Under']},
+      player_rbis: {name: 'Player Total RBIs', picks: ['Over', 'Under']},
+      player_strikeouts: {name: 'Pitcher Total Strikeouts', picks: ['Over', 'Under']},
+      player_home_runs: {name: 'Player to Hit Home Run', picks: ['Yes', 'No']},
+      extra_innings: {name: 'Game to Go to Extra Innings', picks: ['Yes', 'No']},
+      win_margin: {name: 'Win Margin', picks: ['Home by 1-2', 'Home by 3+', 'Away by 1-2', 'Away by 3+']}
     };
 
-    function getRandomGame() {
-      const selectedDate = dateSelect.value;
-      const games = upcomingGames[selectedDate];
+    function getRandomGame(date) {
+      const games = upcomingGames[date];
+      if (!games || games.length === 0) {
+        throw new Error(`No games available for ${date}`);
+      }
       return games[Math.floor(Math.random() * games.length)];
     }
 
@@ -238,63 +289,100 @@
       return markets[selectedMarket];
     }
 
-    function getRandomOdds(market) {
-      return market.odds[Math.floor(Math.random() * market.odds.length)];
+    function getRandomPick(market) {
+      return market.picks[Math.floor(Math.random() * market.picks.length)];
+    }
+
+    function generateRandomOdds() {
+      const baseOdds = Math.floor(Math.random() * 500) + 100;
+      return Math.random() < 0.5 ? baseOdds : -baseOdds;
+    }
+
+    function convertOdds(americanOdds, format) {
+      if (format === 'american') return americanOdds;
+      if (format === 'decimal') {
+        return americanOdds > 0 
+          ? (americanOdds / 100 + 1).toFixed(2) 
+          : (100 / -americanOdds + 1).toFixed(2);
+      }
     }
 
     generateParlayButton.addEventListener('click', () => {
-      const legs = parseInt(legsInput.value);
-      let parlayHtml = '<h3 class="text-lg font-bold mb-4">Generated Parlay</h3>';
-      let totalOdds = 1;
+      try {
+        const legs = parseInt(legsInput.value);
+        if (isNaN(legs) || legs < 1 || legs > 5) {
+          throw new Error('Please enter a valid number of legs between 1 and 5.');
+        }
 
-      for (let i = 1; i <= legs; i++) {
-        const game = getRandomGame();
-        const market = getRandomMarket();
-        const odds = getRandomOdds(market);
+        const selectedDate = dateSelect.value;
+        let parlayHtml = '<h3 class="text-2xl font-bold mb-6">Your Generated Parlay</h3>';
+        let usedGames = new Set();
 
-        totalOdds *= (odds > 0 ? (odds / 100 + 1) : (100 / -odds + 1));
+        for (let i = 1; i <= legs; i++) {
+          let game, market, pick;
+          do {
+            game = getRandomGame(selectedDate);
+          } while (usedGames.has(JSON.stringify(game)));
+          usedGames.add(JSON.stringify(game));
 
-        parlayHtml += `
-          <div class="mb-4 p-4 bg-gray-600 rounded-md">
-            <h4 class="font-bold">Leg ${i}</h4>
-            <p>Teams: ${game.awayTeam} @ ${game.homeTeam} (${game.time})</p>
-            <p>Market: ${market.name}</p>
-            <p>Odds: ${odds > 0 ? '+' + odds : odds}</p>
-          </div>
-        `;
+          market = getRandomMarket();
+          pick = getRandomPick(market);
+          const odds = generateRandomOdds();
+          const formattedOdds = convertOdds(odds, oddsFormatSelect.value);
+
+          parlayHtml += `
+            <div class="mb-6 p-6 bg-gray-800 rounded-xl fade-in">
+              <h4 class="text-xl font-semibold mb-3">Leg ${i}</h4>
+              <p class="mb-2"><i class="ph-baseball-fill mr-2"></i>${game.awayTeam} @ ${game.homeTeam} (${game.time})</p>
+              <p class="mb-2"><i class="ph-chart-pie-slice-fill mr-2"></i>${market.name}</p>
+              <p class="highlight-pick"><i class="ph-check-circle-fill mr-2"></i>${pick}</p>
+              <p class="mt-3 text-xl"><i class="ph-currency-dollar-fill mr-2"></i>Odds: ${formattedOdds}</p>
+            </div>
+          `;
+        }
+
+        parlayOutput.innerHTML = parlayHtml;
+      } catch (error) {
+        parlayOutput.innerHTML = `<p class="text-red-500 text-center">${error.message}</p>`;
       }
-
-      parlayHtml += `
-        <div class="mt-4 p-4 bg-gray-600 rounded-md">
-          <h4 class="font-bold">Parlay Summary</h4>
-          <p>Total Odds: ${((totalOdds - 1) * 100).toFixed(2)}${((totalOdds - 1) * 100) > 0 ? '+' : ''}</p>
-        </div>
-      `;
-
-      parlayOutput.innerHTML = parlayHtml;
     });
 
-    // Modal functionality
-    function showModal(title, content) {
-      modalTitle.textContent = title;
-      modalContent.textContent = content;
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
+    oddsFormatSelect.addEventListener('change', () => {
+      const parlayLegs = document.querySelectorAll('#parlay-output > div');
+      parlayLegs.forEach(leg => {
+        const oddsElement = leg.querySelector('p:last-child');
+        if (oddsElement) {
+          const americanOdds = parseInt(oddsElement.textContent.split(': ')[1]);
+          const formattedOdds = convertOdds(americanOdds, oddsFormatSelect.value);
+          oddsElement.textContent = `Odds: ${formattedOdds}`;
+        }
+      });
+    });
 
-    function hideModal() {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
+    // Theme toggle functionality
+    let isDarkMode = true;
+    themeToggle.addEventListener('click', () => {
+      isDarkMode = !isDarkMode;
+      document.body.classList.toggle('bg-gray-900', isDarkMode);
+      document.body.classList.toggle('bg-gray-100', !isDarkMode);
+      document.body.classList.toggle('text-gray-100', isDarkMode);
+      document.body.classList.toggle('text-gray-900', !isDarkMode);
 
-    modalClose.addEventListener('click', hideModal);
+      const bgElements = document.querySelectorAll('.bg-gray-800, .card');
+      bgElements.forEach(el => {
+        el.classList.toggle('bg-gray-800', isDarkMode);
+        el.classList.toggle('bg-white', !isDarkMode);
+      });
 
-    // Sidebar button functionality
-    document.getElementById('home-btn').addEventListener('click', () => showModal('Home', 'Home page content would go here.'));
-    document.getElementById('stats-btn').addEventListener('click', () => showModal('Stats', 'Statistics would be displayed here.'));
-    document.getElementById('calendar-btn').addEventListener('click', () => showModal('Calendar', 'Calendar events would be shown here.'));
-    document.getElementById('slip-generator-btn').addEventListener('click', hideModal);
+      const icon = themeToggle.querySelector('i');
+      icon.classList.toggle('ph-sun-fill', isDarkMode);
+      icon.classList.toggle('ph-moon-fill', !isDarkMode);
+    });
 
+    // Initialize phosphor icons
+    window.addEventListener('load', () => {
+      PhosphorIcons.replace();
+    });
   </script>
 </body>
 </html>
