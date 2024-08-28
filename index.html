@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JxshBets - MLB Slip Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/phosphor-icons"></script>
+</head>
+<body class="bg-gray-900 text-gray-300">
+  <div class="flex h-screen">
+    <div class="bg-gray-800 p-6 w-1/4 flex flex-col gap-4">
+      <div class="flex items-center gap-2">
+        <img src="logo.png" alt="JxshBets Logo" class="w-12 h-12">
+        <h2 class="text-lg font-bold">JxshBets</h2>
+      </div>
+      <nav class="flex flex-col gap-4">
+        <button id="home-btn" class="bg-gray-700 px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-600">
+          <i class="ph-house"></i>
+          <span>Home</span>
+        </button>
+        <button id="stats-btn" class="bg-gray-700 px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-600">
+          <i class="ph-chart-bar"></i>
+          <span>Stats</span>
+        </button>
+        <button id="calendar-btn" class="bg-gray-700 px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-600">
+          <i class="ph-calendar"></i>
+          <span>Calendar</span>
+        </button>
+        <button id="slip-generator-btn" class="bg-gray-700 px-4 py-2 rounded-md flex items-center gap-2 active:bg-gray-600">
+          <i class="ph-lightning-bolt"></i>
+          <span>Slip Generator</span>
+        </button>
+      </nav>
+      <div class="flex gap-4 mt-auto">
+        <button class="bg-gray-700 px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-600">
+          <i class="ph-twitter-logo"></i>
+        </button>
+        <button class="bg-gray-700 px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-600">
+          <i class="ph-discord-logo"></i>
+        </button>
+        <button class="bg-gray-700 px-4 py-2 rounded-md flex items-center gap-2 hover:bg-gray-600">
+          <i class="ph-instagram-logo"></i>
+        </button>
+      </div>
+    </div>
+    <div class="bg-gray-800 p-6 w-3/4 flex flex-col gap-4 overflow-y-auto">
+      <div class="flex items-center gap-2">
+        <i class="ph-lightning-bolt"></i>
+        <h2 class="text-lg font-bold">MLB Slip Generator</h2>
+      </div>
+      <p class="text-sm">Create MLB parlays with a wide range of markets.</p>
+      <div class="bg-gray-700 rounded-md p-4">
+        <h3 class="text-lg font-bold mb-2">BUILD YOUR SLIP</h3>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="date" class="block text-sm font-medium mb-2">Date</label>
+            <select id="date" class="bg-gray-600 border border-gray-500 text-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 rounded-md">
+              <option value="2024-08-29">August 29, 2024</option>
+              <option value="2024-08-30">August 30, 2024</option>
+              <option value="2024-08-31">August 31, 2024</option>
+              <option value="2024-09-01">September 1, 2024</option>
+              <option value="2024-09-02">September 2, 2024</option>
+            </select>
+          </div>
+          <div>
+            <label for="sport" class="block text-sm font-medium mb-2">Sport</label>
+            <select id="sport" class="bg-gray-600 border border-gray-500 text-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 rounded-md">
+              <option value="mlb">MLB</option>
+            </select>
+          </div>
+          <div>
+            <label for="sportsbook" class="block text-sm font-medium mb-2">Sportsbook</label>
+            <select id="sportsbook" class="bg-gray-600 border border-gray-500 text-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 rounded-md">
+              <option value="draftkings">DraftKings</option>
+            </select>
+          </div>
+          <div>
+            <label for="legs" class="block text-sm font-medium mb-2">Legs</label>
+            <input type="number" id="legs" min="1" max="5" class="bg-gray-600 border border-gray-500 text-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 rounded-md" value="2" />
+          </div>
+          <div>
+            <label for="markets" class="block text-sm font-medium mb-2">Markets</label>
+            <select id="markets" class="bg-gray-600 border border-gray-500 text-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 rounded-md">
+              <option value="all">All</option>
+              <option value="moneyline">Moneyline</option>
+              <option value="runline">Run Line</option>
+              <option value="total">Total Runs (Over/Under)</option>
+              <option value="team_total">Team Total Runs</option>
+              <option value="first_5_innings">First 5 Innings (Moneyline)</option>
+              <option value="first_5_innings_total">First 5 Innings Total</option>
+              <option value="first_inning">First Inning Result</option>
+              <option value="alt_runline">Alternate Run Line</option>
+              <option value="player_hits">Player Total Hits</option>
+              <option value="player_runs">Player Total Runs</option>
+              <option value="player_rbis">Player Total RBIs</option>
+              <option value="player_strikeouts">Pitcher Total Strikeouts</option>
+              <option value="player_home_runs">Player to Hit Home Run</option>
+              <option value="extra_innings">Game to Go to Extra Innings</option>
+              <option value="win_margin">Win Margin</option>
+            </select>
+          </div>
+          <div class="col-span-2">
+            <button id="generate-parlay" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline">Generate Parlay</button>
+          </div>
+        </div>
+      </div>
+      <div id="parlay-output" class="bg-gray-700 rounded-md p-4 h-full overflow-y-auto">
+        <p class="text-center">Awaiting parlay inputs...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center">
+    <div class="bg-gray-800 p-6 rounded-lg max-w-lg w-full">
+      <h2 id="modal-title" class="text-xl font-bold mb-4"></h2>
+      <p id="modal-content"></p>
+      <button id="modal-close" class="mt-4 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const generateParlayButton = document.getElementById('generate-parlay');
+    const parlayOutput = document.getElementById('parlay-output');
+    const legsInput = document.getElementById('legs');
+    const marketsSelect = document.getElementById('markets');
+    const dateSelect = document.getElementById('date');
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalContent = document.getElementById('modal-content');
+    const modalClose = document.getElementById('modal-close');
+
+    const upcomingGames = {
+      '2024-08-29': [
+        { homeTeam: 'Tigers', awayTeam: 'Angels', time: '1:10 p.m.' },
+        { homeTeam: 'White Sox', awayTeam: 'Rangers', time: '2:10 p.m.' },
+        { homeTeam: 'Rockies', awayTeam: 'Marlins', time: '3:10 p.m.' },
+        { homeTeam: 'Reds', awayTeam: 'Athletics', time: '4:10 p.m.' },
+        { homeTeam: 'Red Sox', awayTeam: 'Blue Jays', time: '7:10 p.m.' },
+        { homeTeam: 'Dodgers', awayTeam: 'Orioles', time: '10:10 p.m.' },
+        { homeTeam: 'Brewers', awayTeam: 'Giants', time: '2:10 p.m.' },
+        { homeTeam: 'Cardinals', awayTeam: 'Padres', time: '2:15 p.m.' },
+        { homeTeam: 'Diamondbacks', awayTeam: 'Mets', time: '3:40 p.m.' },
+        { homeTeam: 'Phillies', awayTeam: 'Braves', time: '6:40 p.m.' },
+        { homeTeam: 'Astros', awayTeam: 'Royals', time: '8:10 p.m.' }
+      ],
+      '2024-08-30': [
+        { homeTeam: 'Reds', awayTeam: 'Brewers', time: '12:40 p.m.' },
+        { homeTeam: 'Phillies', awayTeam: 'Braves', time: '6:45 p.m.' },
+        { homeTeam: 'Nationals', awayTeam: 'Cubs', time: '6:45 p.m.' },
+        { homeTeam: 'Yankees', awayTeam: 'Cardinals', time: '7:05 p.m.' },
+        { homeTeam: 'Rangers', awayTeam: 'Athletics', time: '8:05 p.m.' },
+        { homeTeam: 'White Sox', awayTeam: 'Mets', time: '8:10 p.m.' },
+        { homeTeam: 'Twins', awayTeam: 'Blue Jays', time: '8:10 p.m.' },
+        { homeTeam: 'Rockies', awayTeam: 'Orioles', time: '8:40 p.m.' },
+        { homeTeam: 'Angels', awayTeam: 'Mariners', time: '9:38 p.m.' },
+        { homeTeam: 'Giants', awayTeam: 'Marlins', time: '10:15 p.m.' },
+        { homeTeam: 'Tigers', awayTeam: 'Red Sox', time: '6:40 p.m.' },
+        { homeTeam: 'Rays', awayTeam: 'Padres', time: '6:50 p.m.' }
+      ],
+      '2024-08-31': [
+        { homeTeam: 'Yankees', awayTeam: 'Cardinals', time: '1:05 p.m.' },
+        { homeTeam: 'Rays', awayTeam: 'Padres', time: '4:10 p.m.' },
+        { homeTeam: 'Tigers', awayTeam: 'Red Sox', time: '6:10 p.m.' },
+        { homeTeam: 'Rangers', awayTeam: 'Athletics', time: '7:05 p.m.' },
+        { homeTeam: 'White Sox', awayTeam: 'Mets', time: '7:10 p.m.' },
+        { homeTeam: 'Twins', awayTeam: 'Blue Jays', time: '7:10 p.m.' },
+        { homeTeam: 'Phillies', awayTeam: 'Braves', time: '7:15 p.m.' },
+        { homeTeam: 'Brewers', awayTeam: 'Reds', time: '7:15 p.m.' },
+        { homeTeam: 'Rockies', awayTeam: 'Orioles', time: '8:10 p.m.' },
+        { homeTeam: 'Diamondbacks', awayTeam: 'Dodgers', time: '8:10 p.m.' },
+        { homeTeam: 'Giants', awayTeam: 'Marlins', time: '9:05 p.m.' },
+        { homeTeam: 'Nationals', awayTeam: 'Cubs', time: '4:05 p.m.' },
+        { homeTeam: 'Guardians', awayTeam: 'Pirates', time: '6:10 p.m.' }
+      ],
+'2024-09-01': [
+        { homeTeam: 'Reds', awayTeam: 'Brewers', time: '12:10 p.m.' },
+        { homeTeam: 'Nationals', awayTeam: 'Cubs', time: '1:35 p.m.' },
+        { homeTeam: 'Rays', awayTeam: 'Padres', time: '1:40 p.m.' },
+        { homeTeam: 'Tigers', awayTeam: 'Red Sox', time: '1:40 p.m.' },
+        { homeTeam: 'Guardians', awayTeam: 'Pirates', time: '1:40 p.m.' },
+        { homeTeam: 'White Sox', awayTeam: 'Mets', time: '2:10 p.m.' },
+        { homeTeam: 'Twins', awayTeam: 'Blue Jays', time: '2:10 p.m.' },
+        { homeTeam: 'Rangers', awayTeam: 'Athletics', time: '2:35 p.m.' },
+        { homeTeam: 'Rockies', awayTeam: 'Orioles', time: '3:10 p.m.' },
+        { homeTeam: 'Giants', awayTeam: 'Marlins', time: '4:05 p.m.' },
+        { homeTeam: 'Angels', awayTeam: 'Mariners', time: '4:07 p.m.' },
+        { homeTeam: 'Diamondbacks', awayTeam: 'Dodgers', time: '4:10 p.m.' },
+        { homeTeam: 'Phillies', awayTeam: 'Braves', time: '7:10 p.m.' },
+        { homeTeam: 'Yankees', awayTeam: 'Cardinals', time: '7:10 p.m.' }
+      ],
+      '2024-09-02': [
+        { homeTeam: 'Brewers', awayTeam: 'Cardinals', time: '2:10 p.m.' },
+        { homeTeam: 'Royals', awayTeam: 'Guardians', time: '4:10 p.m.' },
+        { homeTeam: 'Reds', awayTeam: 'Astros', time: '4:10 p.m.' },
+        { homeTeam: 'Diamondbacks', awayTeam: 'Dodgers', time: '4:10 p.m.' },
+        { homeTeam: 'Padres', awayTeam: 'Tigers', time: '6:40 p.m.' },
+        { homeTeam: 'Rays', awayTeam: 'Twins', time: '6:50 p.m.' },
+        { homeTeam: 'Athletics', awayTeam: 'Mariners', time: '7:07 p.m.' },
+        { homeTeam: 'Pirates', awayTeam: 'Cubs', time: '7:05 p.m.' },
+        { homeTeam: 'Rangers', awayTeam: 'Yankees', time: '8:05 p.m.' },
+        { homeTeam: 'Mets', awayTeam: 'Red Sox', time: '8:10 p.m.' },
+        { homeTeam: 'Orioles', awayTeam: 'White Sox', time: '9:05 p.m.' }
+      ]
+    };
+
+    const markets = {
+      moneyline: {name: 'Moneyline', odds: [-110, 110]},
+      runline: {name: 'Run Line', odds: [-110, 110]},
+      total: {name: 'Total Runs (Over/Under)', odds: [-110, 110]},
+      team_total: {name: 'Team Total Runs', odds: [-110, 110]},
+      first_5_innings: {name: 'First 5 Innings (Moneyline)', odds: [-110, 110]},
+      first_5_innings_total: {name: 'First 5 Innings Total', odds: [-110, 110]},
+      first_inning: {name: 'First Inning Result', odds: [150, 180, 300]},
+      alt_runline: {name: 'Alternate Run Line', odds: [-150, 130]},
+      player_hits: {name: 'Player Total Hits', odds: [-110, 110]},
+      player_runs: {name: 'Player Total Runs', odds: [-110, 110]},
+      player_rbis: {name: 'Player Total RBIs', odds: [-110, 110]},
+      player_strikeouts: {name: 'Pitcher Total Strikeouts', odds: [-110, 110]},
+      player_home_runs: {name: 'Player to Hit Home Run', odds: [250, 300, 350]},
+      extra_innings: {name: 'Game to Go to Extra Innings', odds: [600, 700]},
+      win_margin: {name: 'Win Margin', odds: [200, 250, 300, 400]}
+    };
+
+    function getRandomGame() {
+      const selectedDate = dateSelect.value;
+      const games = upcomingGames[selectedDate];
+      return games[Math.floor(Math.random() * games.length)];
+    }
+
+    function getRandomMarket() {
+      const selectedMarket = marketsSelect.value;
+      if (selectedMarket === 'all') {
+        const marketKeys = Object.keys(markets);
+        return markets[marketKeys[Math.floor(Math.random() * marketKeys.length)]];
+      }
+      return markets[selectedMarket];
+    }
+
+    function getRandomOdds(market) {
+      return market.odds[Math.floor(Math.random() * market.odds.length)];
+    }
+
+    generateParlayButton.addEventListener('click', () => {
+      const legs = parseInt(legsInput.value);
+      let parlayHtml = '<h3 class="text-lg font-bold mb-4">Generated Parlay</h3>';
+      let totalOdds = 1;
+
+      for (let i = 1; i <= legs; i++) {
+        const game = getRandomGame();
+        const market = getRandomMarket();
+        const odds = getRandomOdds(market);
+
+        totalOdds *= (odds > 0 ? (odds / 100 + 1) : (100 / -odds + 1));
+
+        parlayHtml += `
+          <div class="mb-4 p-4 bg-gray-600 rounded-md">
+            <h4 class="font-bold">Leg ${i}</h4>
+            <p>Teams: ${game.awayTeam} @ ${game.homeTeam} (${game.time})</p>
+            <p>Market: ${market.name}</p>
+            <p>Odds: ${odds > 0 ? '+' + odds : odds}</p>
+          </div>
+        `;
+      }
+
+      parlayHtml += `
+        <div class="mt-4 p-4 bg-gray-600 rounded-md">
+          <h4 class="font-bold">Parlay Summary</h4>
+          <p>Total Odds: ${((totalOdds - 1) * 100).toFixed(2)}${((totalOdds - 1) * 100) > 0 ? '+' : ''}</p>
+        </div>
+      `;
+
+      parlayOutput.innerHTML = parlayHtml;
+    });
+
+    // Modal functionality
+    function showModal(title, content) {
+      modalTitle.textContent = title;
+      modalContent.textContent = content;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function hideModal() {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    modalClose.addEventListener('click', hideModal);
+
+    // Sidebar button functionality
+    document.getElementById('home-btn').addEventListener('click', () => showModal('Home', 'Home page content would go here.'));
+    document.getElementById('stats-btn').addEventListener('click', () => showModal('Stats', 'Statistics would be displayed here.'));
+    document.getElementById('calendar-btn').addEventListener('click', () => showModal('Calendar', 'Calendar events would be shown here.'));
+    document.getElementById('slip-generator-btn').addEventListener('click', hideModal);
+
+  </script>
+</body>
+</html>
